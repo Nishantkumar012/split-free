@@ -5,7 +5,7 @@ import { authMiddleware } from "../middlewares/auth"
 
 const router = Router()
 
-
+// making the group
 router.post("/",authMiddleware, async(req,res)=>{
          
       const {name} = req.body;
@@ -121,10 +121,50 @@ router.get("/:groupId", authMiddleware, async(req,res)=>{
 
           try {
             
-             const group = await prisma.group.findUnique({
-                   where:{id: groupId},
-                   include: { members: {include: {user: {select: {id: true, name: true, email: true}}}}}
-             })
+            //  const group = await prisma.group.findUnique({
+            //        where:{id: groupId},
+            //        include: { 
+            //         members: {
+            //             include: {
+            //                 user: {
+            //                     select: {
+            //                         id: true, name: true, email: true
+            //                     }}},
+            //                 },
+            //         expense:{
+            //             include:{
+            //                paidby:{
+            //                     select: {id:true, name:true},
+            //                },
+            //                     splits: {include:
+            //                         {user:{select: {id:true, name:true}}}
+            //                     }
+
+            //             }
+            //         } 
+            //     }
+            //  })
+
+                const group = await prisma.group.findUnique({
+      where: { id: groupId },
+      include: {
+        members: {
+          include: { user: { select: { id: true, name: true, email: true } } },
+        },
+        expenses: {
+          include: {
+            paidBy: { select: { id: true, name: true } },
+            splits: { include: { user: { select: { id: true, name: true } } } },
+          },
+        },
+        settlements: {
+          include: {
+            from: { select: { id: true, name: true } },
+            to: { select: { id: true, name: true } },
+          },
+        },
+      },
+    });
 
              if(!group) return res.status(404).json({ error: "Group not found"})
 

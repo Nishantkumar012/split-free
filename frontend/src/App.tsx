@@ -6,6 +6,7 @@ import Signup from "./pages/Signup"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from './components/ProtectedRoute';
 import GroupDetail from './pages/GroupDetail';
+import AddExpense from './pages/AddExpense';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -100,7 +101,10 @@ useEffect(() => {
       path="/dashboard"
       element={
         <ProtectedRoute user={user} token={token}>
-          <Dashboard user={user} token={token} />
+          /
+          <Dashboard user={user} token={token} focus={function (): HTMLInputElement {
+            throw new Error('Function not implemented.');
+          } } />
         </ProtectedRoute>
       }
     />
@@ -114,6 +118,20 @@ useEffect(() => {
     <Route 
     path="/groups/:groupId"
      element={<ProtectedRoute user={user} token={token}><GroupDetail /></ProtectedRoute>} />
+
+
+
+     {/* <Route 
+    path="/groups/:groupId"
+     element={<GroupDetail />} /> */}
+
+
+
+//protectedRoute ensure that if user is logged in then can access
+    <Route
+     path="/group/:groupId/add-expense"
+         element={<ProtectedRoute user={user} token={token}><AddExpense /></ProtectedRoute>} 
+     />
 
 
     

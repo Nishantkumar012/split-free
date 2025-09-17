@@ -29,13 +29,14 @@ function Login({setUser,setToken}: LoginProps) {
            setUser(res.data.user);
            setToken(res.data.token);
 
+          
+
            navigate("/dashboard")
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
-
 }
 
   return(

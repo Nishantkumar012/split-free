@@ -178,4 +178,50 @@ router.get("/:groupId", authMiddleware, async(req,res)=>{
           }
 })
 
+router.post("/:groupId/add-expense", authMiddleware, async (req, res) => {
+  try {
+    const { groupId } = req.params;
+    const { amount, description } = req.body;
+
+    if (!description || !amount) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
+
+    // check if group exists
+    const group = await prisma.group.findUnique({ where: { id: groupId } });
+    if (!group) return res.status(404).json({ error: "Group not found" });
+
+    // ✅ check membership properly
+    const member = await prisma.groupMember.findFirst({
+      where: {
+        groupId: groupId,
+        userId: req.userId, // make sure authMiddleware sets req.userId
+      },
+    });
+
+    if (!member) {
+      return res.status(403).json({ error: "User not in group" });
+    }
+
+    if (!req.userId) {
+      return res.status(401).json({ error: "User ID not found in request" });
+    }
+
+    // create expense
+    const expense = await prisma.expense.create({
+      data: {
+        description,
+        amount,
+        paidById: req.userId,
+        groupId,
+      },
+    });
+
+    res.status(201).json(expense);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 export default router;

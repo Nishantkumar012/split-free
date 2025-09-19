@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import GroupDetail from './pages/GroupDetail';
 import AddExpense from './pages/AddExpense';
 import GroupSettlements from './pages/GroupSettlements';
+import Home from './pages/Home'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -92,6 +93,7 @@ useEffect(() => {
    <BrowserRouter>
   <Routes>
     {/* Public Routes */}
+    <Route path='/' element={<Home/>}/>
     <Route path="/signup" element={<Signup />} />
     <Route path="/login" element={<Login setUser={setUser} setToken={setToken} />} />
 

@@ -36,10 +36,10 @@ app.get("/", (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // });
-// app.use("/api/auth", authRoutes)
-// app.use("/api/auth", userRoutes)
 app.use("/api/auth", auth_1.default);
-app.use("/api/users", user_1.default);
+app.use("/api/auth", user_1.default);
+// app.use("/api/auth", authRoutes)
+// app.use("/api/users", userRoutes)
 app.use("/api/groups", group_1.default);
 app.use("/api/expense", expense_1.default);
 app.use("/api/settlements", settlements_1.default);

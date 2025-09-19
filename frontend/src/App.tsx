@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from './components/ProtectedRoute';
 import GroupDetail from './pages/GroupDetail';
 import AddExpense from './pages/AddExpense';
+import GroupSettlements from './pages/GroupSettlements';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -133,7 +134,10 @@ useEffect(() => {
          element={<ProtectedRoute user={user} token={token}><AddExpense /></ProtectedRoute>} 
      />
 
-
+     <Route
+      path='/group/:groupId/settlements'
+      element= {<ProtectedRoute user={user} token={token}> <GroupSettlements/></ProtectedRoute>}
+     />
     
   </Routes>
 </BrowserRouter>

@@ -43,11 +43,11 @@ app.get("/", (req, res) => {
 // });
 
 
-// app.use("/api/auth", authRoutes)
-// app.use("/api/auth", userRoutes)
-// app.use("/api/groups", groupRoutes)
-// app.use("/api/expense", expenseRoutes)
-// app.use("/api/settlements",settlementsRoutes)
-// app.use("/api/groups",balanceRoutes)
+app.use("/api/auth", authRoutes)
+app.use("/api/auth", userRoutes)
+app.use("/api/groups", groupRoutes)
+app.use("/api/expense", expenseRoutes)
+app.use("/api/settlements",settlementsRoutes)
+app.use("/api/groups",balanceRoutes)
 
 export default app;

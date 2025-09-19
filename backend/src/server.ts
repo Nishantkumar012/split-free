@@ -1,10 +1,16 @@
-import app from "./app"
+import app from "./app";
+import serverless from "serverless-http";
 
-const PORT = process.env.PORT || 5000;
+export default serverless(app);
 
 
-// for it to be worked on vercel
-// app.listen(PORT, ()=>{
+// import app from "./app"
 
-//      console.log(` Server is running at port no ${PORT}`);
-// })
+// const PORT = process.env.PORT || 5000;
+
+
+// // for it to be worked on vercel
+// // app.listen(PORT, ()=>{
+
+// //      console.log(` Server is running at port no ${PORT}`);
+// // })

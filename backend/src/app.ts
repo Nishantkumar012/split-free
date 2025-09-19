@@ -17,10 +17,15 @@ const app: Application = express()
 app.use(cors());
 app.use(express.json())
 
-app.get("/", (req,res) =>{
+app.get("/health", (req,res) =>{
      
       res.json({status:"ok", message: "server is runnig"});
 })
+
+app.get("/", (req, res) => {
+  res.send("Hello from Express + TypeScript on Vercel!");
+});
+
 
 // app.post("/test-user", async (req, res) => {
 //   try {

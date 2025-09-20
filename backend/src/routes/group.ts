@@ -65,54 +65,110 @@ router.get("/", authMiddleware, async(req,res)=>{
 })
 
 
-// add member to a group
-router.post("/:groupId/add-member", authMiddleware, async(req,res)=>{
+// // add member to a group
+// router.post("/:groupId/add-member", authMiddleware, async(req,res)=>{
         
-        const { groupId } = req.params;
+//         const { groupId } = req.params;
 
-        // id of the user you want to be member of the group and role you want to give him 
-        const { userId, role } = req.body;
+//         // id of the user you want to be member of the group and role you want to give him 
+//         const { userId, role } = req.body;
 
-        if( !userId ){
-            return res.status(400).json({error: "User Id is required to add member"});
-        }
+//         if( !userId ){
+//             return res.status(400).json({error: "User Id is required to add member"});
+//         }
         
-        try {
+//         try {
               
-            //check if group exist
-            const group = await prisma.group.findUnique({
-                where: {id:groupId}
-            })
+//             //check if group exist
+//             const group = await prisma.group.findUnique({
+//                 where: {id:groupId}
+//             })
 
-            if(! group){
-                return res.status(400).json({error: "Group not found"});
-            }
+//             if(! group){
+//                 return res.status(400).json({error: "Group not found"});
+//             }
 
             
-            //check if user is member og group or not 
-            const existUser = await prisma.groupMember.findFirst({
-                where:{groupId, userId}
-            })
+//             //check if user is member og group or not 
+//             const existUser = await prisma.groupMember.findFirst({
+//                 where:{groupId, userId}
+//             })
 
-            if(existUser) return res.status(400).json({error: "User already in group"})
+//             if(existUser) return res.status(400).json({error: "User already in group"})
                
 
-                const newMember = await prisma.groupMember.create({
-                    data: {
-                        userId,
-                        groupId,
-                        role: role || "member"
-                    }
-                })
+//                 const newMember = await prisma.groupMember.create({
+//                     data: {
+//                         userId,
+//                         groupId,
+//                         role: role || "member"
+//                     }
+//                 })
 
-                  res.status(201).json(newMember);
+//                   res.status(201).json(newMember);
 
-        }   catch (error: any) {
-            console.error("Error adding member:", error);
+//         }   catch (error: any) {
+//             console.error("Error adding member:", error);
+//             res.status(500).json({ error: "Internal server error" });
+//         }
+// })
+
+
+router.post("/:groupId/add-member", authMiddleware, async(req,res)=>{
+    
+     const {groupId} = req.params;
+
+     const {email,role} = req.body;
+
+      try {
+             
+          if (!email) {
+              return res.status(400).json({ error: "Email is required to add member" });
+            }
+
+           if(!req.userId){
+               return res.status(400).json({ error: "user is not there" });
+            
+           }
+             
+             
+            
+           const user = await prisma.user.findUnique({
+               where: {email}
+           })
+
+           if(!user){
+              return res.status(404).json({error: "User not found"})
+           }
+
+
+           const existUser = await prisma.groupMember.findFirst({
+                  where: { groupId, userId:user.id}
+             });
+
+           
+           if (existUser) return res.status(400).json({error: "User already in group"})
+            
+            const newMember = await prisma.groupMember.create({
+                
+               data : {
+                 userId: user.id,
+                 groupId,
+                 role: role || 'member'
+              
+             },
+               include: { user: true}
+            })
+
+            res.status(201).json(newMember)
+
+          } catch (error) {
+               
+                        console.error("Error adding member:", error);
             res.status(500).json({ error: "Internal server error" });
-        }
+        
+      }
 })
-
 
 // Get group details by Id 
 router.get("/:groupId", authMiddleware, async(req,res)=>{

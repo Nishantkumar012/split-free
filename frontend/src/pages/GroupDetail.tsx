@@ -19,6 +19,7 @@ import {
   Loader2
 } from 'lucide-react'
 import axiosInstance from '../utils/axiosInstance'
+import AddMemberModal from '../components/AddMemberModal'
 
 interface Member{
     user: any
@@ -113,6 +114,7 @@ function GroupDetail() {
    const [members,setMembers] = useState<Member[]>([])
    const [expenses,setExpense] = useState<Expense[]>([])
    const [loading, setLoading] = useState(true);
+   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
   //  const[ex,setex] = useState("");
 
    useEffect(() =>{
@@ -322,15 +324,16 @@ function GroupDetail() {
                  <h3 className="text-lg font-medium text-gray-900 mb-2">No expenses yet</h3>
                  <p className="text-gray-500 mb-6">Start by adding your first group expense</p>
                  <button
-                   onClick={() => navigate(`/group/${groupId}/add-expense`, {
-                        
+                   onClick={() => navigate(`/group/${groupId}/add-expense`, 
+                    {
+                         
 
-                     // sending this fn handleAddExpense to child
-                     state: {
-                       onExpenseAdded: (newExpense: any) => {
-                              setExpense((prev) => [...prev, newExpense]); // instant update
-                        }                       
-                      }
+                    //  // sending this fn handleAddExpense to child
+                    //  state: {
+                    //    onExpenseAdded: (newExpense: any) => {
+                    //           setExpense((prev) => [...prev, newExpense]); // instant update
+                    //     }                       
+                    //   }
                    })
                   }
                    className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 inline-flex items-center space-x-2"
@@ -361,7 +364,24 @@ function GroupDetail() {
            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
            <span className="hidden sm:inline">Add Expense</span>
          </button>
+
+ <button
+    onClick={() => setIsAddMemberOpen(true)}
+    className="bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-medium py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2 group"
+  >
+    <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+    <span className="hidden sm:inline">Add Member</span>
+  </button>
+
        </div>
+
+       {/* Add Member Modal */}
+       <AddMemberModal
+         isOpen={isAddMemberOpen}
+         onClose={() => setIsAddMemberOpen(false)}
+         groupId={groupId!}
+         onMemberAdded={(newMember) => setMembers((prev) => [...prev, newMember])}
+       />
 
        {/* Mobile-only bottom action bar */}
        <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex space-x-4">
@@ -372,6 +392,15 @@ function GroupDetail() {
            <Plus className="w-5 h-5" />
            <span>Add Expense</span>
          </button>
+ <button
+    onClick={() => setIsAddMemberOpen(true)
+      
+    }
+    className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+  >
+    <Plus className="w-5 h-5" />
+    <span>Add Member</span>
+  </button>
          
          <button
            onClick={() => navigate(`/group/${groupId}/settlements`)}
@@ -386,9 +415,6 @@ function GroupDetail() {
 }
 
 export default GroupDetail
-
-
-// import React from 'react'
 
 // import { useEffect, useState } from 'react'
 // import { useParams, useNavigate} from "react-router-dom"

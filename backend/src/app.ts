@@ -19,11 +19,13 @@ app.use(express.json())
 
 app.get("/health", (req,res) =>{
      
-      res.json({status:"ok", message: "server is runnig"});
+      // res.json({status:"ok", message: "server is runnig"});
+  res.send("Hello from Express + TypeScript in health!");
+      
 })
 
 app.get("/", (req, res) => {
-  res.send("Hello from Express + TypeScript on Vercel!");
+  res.send("Hello from Express + TypeScript on render!");
 });
 
 

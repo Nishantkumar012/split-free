@@ -10,7 +10,6 @@ import {
   Calendar,
   Search,
   Filter,
-  MoreVertical,
   Star,
   Clock,
   Loader2

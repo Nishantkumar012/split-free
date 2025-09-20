@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 
 //only user who are loggined are authorized to pages like dashboard
 
-const ProtectedRoute = ({ user,token, children }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ user, children }: ProtectedRouteProps) => {
   if (!user) {
     // User not logged in → redirect to login
     // return <Navigate to="/login" replace />;

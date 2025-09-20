@@ -4,5 +4,6 @@ node_modules
 
 # removed for vercel
 
+#just minor change
 /src/generated/prisma
 .env

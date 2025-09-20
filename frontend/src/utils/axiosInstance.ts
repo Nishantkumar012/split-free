@@ -1,6 +1,6 @@
 import axios from "axios";
 
- const url = "https://split-free.onrender.com/"
+const url =  import.meta.env.VITE_API_URL + '/api' || "http://localhost:5000/api" ;
 
 //  const url = "http://localhost:5000/api"
 

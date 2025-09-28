@@ -530,4 +530,9 @@ router.post("/:groupId/invite", authMiddleware, async (req, res) => {
 })
 
 
+router.patch("/:groupId/delete",authMiddleware,async(req,res)=>{
+  
+})
+
+
 export default router;

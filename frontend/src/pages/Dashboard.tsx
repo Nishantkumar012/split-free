@@ -12,9 +12,14 @@ import {
   Filter,
   Star,
   Clock,
-  Loader2
+  Loader2,
+  BellElectric,
+  BellIcon
 } from "lucide-react";
 import axiosInstance from "../utils/axiosInstance";
+// import Notif from "../components/notif";
+import Notif from "../components/Notif";
+import Notification from "../components/Notification";
 
 interface DashboardProps {
   user: any;
@@ -171,6 +176,13 @@ function Dashboard({ user, token }: DashboardProps) {
                                 <TrendingUp className="w-4 h-4" />
                                 <span>Active</span>
                             </div>
+{/* 
+                            <div className="flex items-center space-x-2 text-sm">
+                                <BellIcon className="w-4 h-4" />
+                                <span>hello</span>
+                            </div> */}
+
+                            <Notif/>
                         </div>
                     </div>
                 </div>

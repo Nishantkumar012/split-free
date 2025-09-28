@@ -8,7 +8,7 @@ import groupRoutes from "./routes/group"
 import expenseRoutes from "./routes/expense"
 import settlementsRoutes from "./routes/settlements"
 import balanceRoutes from "./routes/balance"
-
+import notifyRoutes from "./routes/notifications"
 
 dotenv.config()
 
@@ -53,5 +53,6 @@ app.use("/api/groups", groupRoutes)
 app.use("/api/expense", expenseRoutes)
 app.use("/api/settlements",settlementsRoutes)
 app.use("/api/groups",balanceRoutes)
+app.use("/api/notification",notifyRoutes)
 
 export default app;

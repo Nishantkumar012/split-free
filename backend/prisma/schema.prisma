@@ -27,6 +27,9 @@ model User {
   splits    Split[]
   settlementsFrom Settlement[] @relation("SettlementFrom")
   settlementsTo   Settlement[] @relation("SettlementTo")
+  
+
+  Notification Notification[]
 }
 
 model Group {
@@ -36,6 +39,8 @@ model Group {
   expenses  Expense[]
   settlements Settlement[]
   createdAt DateTime      @default(now())
+
+  GroupInvite GroupInvite[]
 }
 
 model GroupMember {
@@ -80,3 +85,27 @@ model Settlement {
   createdAt DateTime @default(now())
 }
 
+
+// for invite section
+model GroupInvite {
+  id              String @id @default(cuid())
+  token           String @unique
+  groupId         String
+  group           Group  @relation(fields: [groupId], references: [id])
+  createdAt       DateTime @default(now())
+  expiresAt     DateTime
+}
+
+
+model Notification {
+   
+   id        String @id @default(uuid())
+   userId    String 
+   message   String 
+   isRead    Boolean @default(false)
+   createdAt DateTime @default(now())
+
+   user User @relation(fields:[userId], references: [id])
+}
+
+  // group           Group  @relation(fields: [groupId], references: [id])

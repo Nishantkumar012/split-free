@@ -275,10 +275,42 @@ router.post("/:groupId/add-expense", authMiddleware, async (req, res) => {
         groupId,
       },
     });
+     
+     const payerName = await prisma.user.findUnique({
+      where: {id: req.userId},
+      select: {name:true}
+     })
 
-    res.status(201).json(expense);
+     const groupName = await prisma.group.findUnique({
+        where: {id:groupId},
+        select: {name:true}
+     })
+
+    // Notifications ppart
+    const otherMembers = await prisma.groupMember.findMany({
+      where:{
+        groupId,
+        userId: { not : req.userId}, // excluude the user 
+      },
+      select: {userId:true}
+    })
+            const totalMembers = otherMembers.length + 1; // including payer
+          const splitAmount = amount / totalMembers;
+
+    const notifications = otherMembers.map((m) =>({
+         userId: m.userId,
+         message: `amount 💵 ${amount} is added by ${payerName?.name} in group 🏦 ${groupName?.name} now you owe him ${splitAmount} more`,
+         isRead: false,
+    }))
+        
+      await prisma.notification.createMany({
+          data:notifications
+      })
+      console.log(notifications)
+    res.status(201).json({expense,notifications});
   } catch (error) {
     console.error(error);
+    console.log("error",error)
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -489,6 +521,13 @@ router.get("/:groupId/settlements", authMiddleware, async (req, res) => {
     res.status(500).json({ error: "Something went wrong" });
   }
 });
+
+
+
+// for invite link 
+router.post("/:groupId/invite", authMiddleware, async (req, res) => {
+
+})
 
 
 export default router;

@@ -12,16 +12,25 @@ import {
   Shield
 } from "lucide-react";
 import axiosInstance from "../utils/axiosInstance";
+// import { setNotifications } from "../store/slices/notificationSlice";
+
+import { useDispatch } from "react-redux";
+// import { setNotifications } from "../store/slices/notificationSlice";
+
+
+
 
 // TypeScript interface that defines what props this component expects
 interface LoginProps {
   setUser: (user: any) => void;    // Function to save user data after successful login
   setToken: (token: string) => void; // Function to save authentication token
+  token: string | null
 }
 
-function Login({ setUser, setToken }: LoginProps) {
+function Login({ setUser, setToken, token }: LoginProps) {
   // Hook to programmatically navigate between pages (like going to dashboard after login)
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // State variables to manage form data and UI states
   const [email, setEmail] = useState("");           // User's email input
@@ -29,6 +38,9 @@ function Login({ setUser, setToken }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false); // Whether to show/hide password
   const [loading, setLoading] = useState(false);    // Whether we're currently logging in
   const [error, setError] = useState("");           // Any error messages to show
+
+  // const[isNotIf,setIsNotIf] = useState(false);
+  // const[notification,setNotification] = useState([])
 
   // Function that runs when user submits the login form
   const handleLogin = async (e: React.FormEvent) => {
@@ -47,11 +59,39 @@ function Login({ setUser, setToken }: LoginProps) {
         email,
         password
       });
-
+      
+      
       // If login successful, save user data and token
       setUser(res.data.user);
       setToken(res.data.token);
 
+      // const notif = await axiosInstance.get('/notification?limit=5', {
+      //     headers: {Authorization: `Bearer ${token}`}
+      // })
+        
+      // if(notif){
+
+      //   dispatch(setNotifications(notif.data))
+      // }
+      // console.log("delta",notif.data)
+
+      // // the moment you logged in got recent 5 notification
+      //  const Notification = await axiosInstance.get('/notification?limit=5', {
+      //      headers: { Authorization: `Bearer ${token}` }
+      //   });
+
+        
+      // console.log("notif are",Notification);
+        //  if(Notification){
+               
+              // setIsNotIf(true);
+              // setNotification(Notification.data)
+        //  }
+
+        //  if(!Notification){
+            //  console.log("No notification is there")
+        //  }
+     
       // Navigate to the dashboard page
       navigate("/dashboard");
     } catch (err: any) {

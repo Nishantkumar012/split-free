@@ -95,7 +95,7 @@ useEffect(() => {
     {/* Public Routes */}
     <Route path='/' element={<Home/>}/>
     <Route path="/signup" element={<Signup />} />
-    <Route path="/login" element={<Login setUser={setUser} setToken={setToken} />} />
+    <Route path="/login" element={<Login setUser={setUser} token={token} setToken={setToken} />} />
 
     {/* Protected Routes */}
 
@@ -104,7 +104,7 @@ useEffect(() => {
       path="/dashboard"
       element={
         <ProtectedRoute user={user} token={token}>
-          /
+          
           <Dashboard user={user} token={token} focus={function (): HTMLInputElement {
             throw new Error('Function not implemented.');
           } } />

@@ -1,36 +1,55 @@
-💸 Split-Free – Group Expense Manager
+# 💸 Split-Free (Splitzy) – Group Expense Manager
 
-Split-Free (aka Splitzy) is a modern, full-stack web application that helps groups of friends, roommates, or colleagues easily track shared expenses and settle balances.
-Think of it as a lightweight, open-source alternative to Splitwise.
+**Split-Free**, also known as **Splitzy**, is a full-stack web application for managing shared expenses among friends, roommates, and colleagues.
 
-🚀 Features
+It helps groups record expenses, track balances, and determine who owes whom.
 
-1.👥 Group Management – Create groups and add members.
-2.💵 Add Expenses – Track who paid for what, split equally among members.
-3.📊 Smart Settlements – Automatically calculate who owes whom with minimal transactions.
-4.📱 Responsive UI – Clean, mobile-friendly interface built with React + TailwindCSS.
-5.⚡ Instant Updates – Expenses appear without refreshing the whole page.
-6.🔒 Authentication – Secure routes with JWT-based auth.
+## 🚀 Features
 
-🖥️ Tech Stack
+* 👥 **Group Management** – Create groups and add members.
+* 💵 **Expense Tracking** – Add expenses and record who paid and how the expense is split.
+* 📊 **Balance & Settlement Tracking** – View outstanding balances and determine who owes whom.
+* 📱 **Responsive UI** – Mobile-friendly interface built with React and TailwindCSS.
+* ⚡ **Dynamic Updates** – Update expense information without requiring a full page refresh.
+* 🔐 **Authentication** – JWT-based authentication and protected routes.
 
-Frontend
-1.⚛️ React (TypeScript + Vite)
-2.🎨 TailwindCSS (modern UI styling)
-3.📡 Axios (API calls)
-4.🛤️ React Router (navigation & routing)
+## 🖥️ Tech Stack
 
-Backend
-1.🟢 Node.js + Express
-2.🗄️ PostgreSQL (database)
-3.🛠️ Prisma ORM (database schema & migrations)
-4.🔐 JWT Authentication
+### Frontend
 
+* ⚛️ **React** – UI development
+* 📘 **TypeScript** – Type safety
+* ⚡ **Vite** – Frontend tooling and development
+* 🎨 **TailwindCSS** – Styling
+* 📡 **Axios** – API communication
+* 🛤️ **React Router** – Client-side routing
 
-🎮 Usage
+### Backend
 
-1.🔑 Sign up / Login to your account
-2.👥 Create a group and add members
-3.💵 Add expenses (e.g., dinner ₹1200 paid by Nishant)
-4.📊 View settlements → App shows who owes whom and how much
-5.🎉 Settle up easily!
+* 🟢 **Node.js** – Backend runtime
+* 🚂 **Express.js** – REST API
+* 🐘 **PostgreSQL** – Relational database
+* 🔷 **Prisma** – ORM and database management
+* 🔐 **JWT** – Authentication
+
+## 🎮 Usage
+
+1. 🔑 **Sign up or log in** to your account.
+2. 👥 **Create a group** and add members.
+3. 💵 **Add expenses** and specify who paid and who participated.
+4. 📊 **View balances** to see how expenses are distributed among group members.
+5. 💸 **Settle balances** based on the calculated amounts.
+
+## 📌 Example
+
+Suppose a group has three members and one member pays **₹1,200** for dinner.
+
+Split-Free records the expense and calculates each member's share, making it easier to track the resulting balances within the group.
+
+## 🔗 Project
+
+**GitHub:** [Split-Free](https://github.com/Nishantkumar012)
+
+---
+
+Built with React, Node.js, Express, PostgreSQL, Prisma, and TypeScript.
